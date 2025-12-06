@@ -1,10 +1,10 @@
-use std::collections::HashSet;
+use std::collections::BTreeSet;
 
 use itertools::Itertools;
 
 advent_of_code::solution!(5);
 
-#[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy, PartialOrd, Ord)]
 struct IdRange(usize, usize);
 
 impl From<&str> for IdRange {
@@ -85,8 +85,8 @@ impl Kitchen {
         loop {
             let mut some_were_merged = false;
             let mut new_merged_ranges = Vec::new();
-            let mut unmerged_set = HashSet::new();
-            let mut merged_set = HashSet::new();
+            let mut unmerged_set = BTreeSet::new();
+            let mut merged_set = BTreeSet::new();
             for (r1, r2) in merged_ranges.iter().tuple_combinations() {
                 if merged_set.contains(r1) || merged_set.contains(r2) {
                     continue;
